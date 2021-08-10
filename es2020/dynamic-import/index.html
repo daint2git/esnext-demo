@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="loadModule1()">load module 1</button>
+    <button onclick="loadModule2()">load module 2</button>
+    <select onchange="loadModule3Or4(event)" value="">
+      <option value="">Default</option>
+      <option value="3">load module 3</option>
+      <option value="4">load module 4</option>
+    </select>
+    <script>
+      async function loadModule1() {
+        let module1 = await import('/es2020/dynamic-import/module1.js');
+        console.log(module1.default);
+      }
+
+      async function loadModule2() {
+        let module2 = await import('/es2020/dynamic-import/module2.js');
+        console.log(module2.default());
+      }
+
+      async function loadModule3Or4(event) {
+        const num = event.target.value;
+
+        if (num) {
+          let module = await import(`/es2020/dynamic-import/module${num}.js`);
+          console.log(module.default);
+        }
+      }
+    </script>
+  </body>
+</html>
